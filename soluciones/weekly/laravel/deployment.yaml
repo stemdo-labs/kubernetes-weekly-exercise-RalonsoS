@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel
+  namespace: laravel
+spec:
+  selector:
+    matchLabels:
+      app: laravel
+  template:
+    metadata:
+      labels:
+        app: laravel
+    spec:
+      containers:
+      - name: laravel
+        image: bitnami/laravel:11.0.8
+        ports:
+        - containerPort: 8000
+        envFrom:
+          - configMapRef:
+              name: laravel-config-map
+          - secretRef:
+              name: laravel-secrets

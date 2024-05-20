@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limit-range-laravel
+  namespace: laravel
+spec:
+  limits:
+    - default:
+        cpu: "800m"
+        memory: "512Mi"
+      max:
+        cpu: "1"
+        memory: "700Mi"
+      min:
+        cpu: "800m"
+        memory: "512Mi"
+      type: Container
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limit-range-phpmyadmin
+  namespace: phpmyadmin
+spec:
+  limits:
+    - default:
+        cpu: "800m"
+        memory: "512Mi"
+      max:
+        cpu: "1000m"
+        memory: "700Mi"
+      min:
+        cpu: "800m"
+        memory: "512Mi"
+      type: Container

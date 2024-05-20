@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bbdd
+  namespace: laravel
+  labels:
+    exercise: weekly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bbdd
+  template:
+    metadata:
+      labels:
+        app: bbdd
+    spec:    
+      containers:
+      - name: bbdd
+        image: mysql:8.4
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: bdsecrets
+                key: db
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: bdsecrets
+                key: user
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: bdsecrets
+                key: password
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: bdsecrets
+                key: password
+          - name: MYSQL_INITDB_SKIP_TZINFO
+            value: skip
